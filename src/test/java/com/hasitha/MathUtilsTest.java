@@ -4,7 +4,8 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/* When we  use below annotation only one instance of MathUtilsTest will be created. Unless for each @Test annotation new instance of MathUtilsTest will be created. */
+/* When we  use below annotation only one instance of MathUtilsTest will be created.
+Unless for each @Test annotation new instance of MathUtilsTest will be created. */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class MathUtilsTest {
     public  MathUtilsTest(){
@@ -14,8 +15,7 @@ class MathUtilsTest {
     MathUtils mathUtils=null;
 
     /*This method will run before any of other test methods runs.
-    * Which means this method runs even before an instance of MathUtilsTest created.
-    * That is why this method has declared as static method.
+    * This method runs only once.
     */
     @BeforeAll
     static void initBeforeAll(){
@@ -23,8 +23,7 @@ class MathUtilsTest {
     }
 
     /*This method will run after all other methods runs.
-     * Which means at the time of running this method there is no instance of  MathUtilsTest.
-     * That is why this method has declared as static method.
+     * This method also runs only once.
      */
     @AfterAll
     static  void initAfterAll(){
@@ -60,8 +59,9 @@ class MathUtilsTest {
         int expectedResult=100;
         int actual=mathUtils.add(50, 50);
         //assertEquals(expectedResult,actual);
-        //If ypu want to display a meaningfull message when a test case is failed add a string message as below 3 rd argument of the method.
-        assertEquals(expectedResult,actual,"add method should add two numbers.");
+        //If you want to display a meaningfull message when a test case is failed add a string message as below 3 rd argument of the method.
+        assertEquals(expectedResult,0,"add method should add two numbers.");
+
     }
 
 
@@ -70,7 +70,7 @@ class MathUtilsTest {
       //  MathUtils mathUtils= new MathUtils();
         int expectedResult=7;
         int actual=mathUtils.subtract(10,3);
-        assertEquals(expectedResult,actual,"add method should subtract two numbers.");
+        assertEquals(expectedResult,actual,"subtract method should subtract two numbers.");
     }
 
     @Test
@@ -96,6 +96,7 @@ class MathUtilsTest {
     void testDevideArithmaticException() {
         //MathUtils mathUtils= new MathUtils();
         assertThrows(ArithmeticException.class, () -> mathUtils.devide(10,0),"Devide by 0 should return an ArithmeticException");
+
     }
 
 
@@ -110,6 +111,7 @@ class MathUtilsTest {
 
     //By using assertAll we can test several test cases once.
     @Test
+    @DisplayName("Test using assertAll")
     void testMultiplyWithAssertAll() {
 
         assertAll(
